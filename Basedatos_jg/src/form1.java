@@ -13,6 +13,7 @@ public class form1 {
     private JLabel b1;
     private JLabel bi2;
     private JLabel promedio;
+    private JButton cd;
 
     public form1() {
         okbutton.addActionListener(new ActionListener() {
@@ -32,14 +33,14 @@ public class form1 {
                     while(resultSet.next()){
                         float pnotas = (resultSet.getFloat("b1")+resultSet.getFloat("b2"))/2;
                         System.out.println(resultSet.getString("nombre"));
-                        resultadoTxt.setText(resultSet.getString("nombre"));
+                        resultadoTxt.setText("Nombre: " + resultSet.getString("nombre"));
                         System.out.println(resultSet.getString("cedula"));
-                        cedula.setText(resultSet.getString("cedula"));
+                        cedula.setText("Cédula: " +resultSet.getString("cedula"));
                         System.out.println(resultSet.getString("b1"));
-                        b1.setText(resultSet.getString("b1"));
+                        b1.setText("1er Bimestre: " +resultSet.getString("b1"));
                         System.out.println(resultSet.getString("b2"));
-                        bi2.setText(resultSet.getString("b2"));
-                        promedio.setText(String.valueOf(pnotas));
+                        bi2.setText("2do Bimestre: " +resultSet.getString("b2"));
+                        promedio.setText("Promedio: " +String.valueOf(pnotas));
                     }
                 }catch (SQLException e1){
                     System.out.println(e1);
@@ -47,7 +48,8 @@ public class form1 {
                 }
             }
         });
-        nombre.addActionListener(new ActionListener() {
+
+        cd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String url="jdbc:mysql://localhost:3306/estudiantes1";
@@ -57,7 +59,7 @@ public class form1 {
                 {
 
                     System.out.println("Conectado a la base de datos");
-                    String query="select * from estudiantes1 where nombre = "+ consultaTxt.getText();
+                    String query="select * from estudiantes1 where nombre= '"+ consultaTxt.getText()+"'";
 //                    System.out.println(query);
                     Statement statement=connection.createStatement();
                     ResultSet resultSet=statement.executeQuery(query);
@@ -73,9 +75,9 @@ public class form1 {
                         bi2.setText(resultSet.getString("b2"));
                         promedio.setText(String.valueOf(pnotas));
                     }
-                }catch (SQLException e2){
-                    System.out.println(e2);
-                    System.out.println("Error al conectar a la base de datos: " + e2.getMessage());
+                }catch (SQLException e1){
+                    System.out.println(e1);
+                    System.out.println("Error al conectar a la base de datos: " + e1.getMessage());
                 }
             }
         });
